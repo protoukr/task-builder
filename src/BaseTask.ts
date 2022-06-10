@@ -33,7 +33,6 @@ export abstract class BaseTask<T extends TaskContext = TaskContext>
 {
   status = TaskStatus.PENDING;
 
-
   private _callback?: TaskCallback;
 
   private _ctx?: T;
