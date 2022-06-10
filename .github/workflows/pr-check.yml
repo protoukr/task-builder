@@ -1,0 +1,25 @@
+name: Pull Request Check
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  test:
+    name: Node ${{ matrix.node }} / ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+        node:
+          - '14'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ runner.node }}
+      - run: npm install
+      - run: npm run format+lint:check --if-present
+      - run: npm test
